@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { RiAddLine } from "react-icons/ri";
 import ShortUniqueId from "short-unique-id";
-import { AiFillDelete } from "react-icons/ai";
+import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { TiFlowChildren } from "react-icons/ti";
 
 const Generator = () => {
@@ -47,10 +47,7 @@ const Generator = () => {
   // console.log(Object.entries(data))
 
   const [data, setData] = useState<any>({});
-
-  const [formattedData, setformattedData] = useState<any>([]);
-
-
+  const [formattedData, setFormattedData] = useState<any>([]);
 
   const handleAddChild = (parent: string, currentPair: any) => {
 
@@ -63,20 +60,49 @@ const Generator = () => {
       updatedData[keyId] = {
         key: currentPair.key,
         value: currentPair.value,
-        children: [],
+        children: {
+          yyy: {
+            key: 'kothay?',
+            value: 'address',
+            children: {
+              yyy: {
+                key: 'kothay?',
+                value: 'address',
+                children: [],
+                parent: 2,
+              },
+            },
+            parent: 2,
+          },
+          yyy1: {
+            key: 'kothay?',
+            value: 'address',
+            children: {
+              yyy: {
+                key: 'kothay?',
+                value: 'address',
+                children: [],
+                parent: 2,
+              },
+            },
+            parent: 2,
+          },
+        },
+        
         parent: 1,
       };
     } else {
+      console.log()
     }
 
     setData(updatedData);
-    fromatData();
+    formatData();
   };
 
-  const fromatData = () => {
-    setformattedData(Object.entries(data));
+  const formatData = () => {
+    setFormattedData(Object.entries(data));
   }
-  
+
 
   const styles = {
     curleyBraces: `text-4xl text-[#F4ABC4] font-bold m-3`,
@@ -96,15 +122,9 @@ const Generator = () => {
 
         <p className={styles.curleyBraces}>{`{`}</p>
         <main className="m-6 text-black">
+
           {
-            formattedData.map((data: any) => {
-              return(
-                <div key={data[0]} className='flex space-x-1'>
-                  <DisplayAddedChild Key={data[1].key} Value={data[1].value} />
-                  <span className="text-[#F4ABC4] font-semibold text-2xl mt-8">,</span>
-                </div>
-              )
-            })
+            formattedData.length && <DisplayAddedChild data={data} />
           }
           <AddNewObject handleAddChild={handleAddChild} parent={''} />
         </main>
@@ -155,27 +175,51 @@ const AddNewObject = ({handleAddChild, parent}: any) => {
 }
 
 
-const DisplayAddedChild = ({Key, Value}: any) => {
-  // console.log('dsad', Key, Value)
+const DisplayAddedChild = ({data}: any) => {
+
   return (
-    <div className="flex flex-row p-2 bg-[#F4ABC4] rounded-md gap-4 w-fit justify-center items-center my-2">
-      <div
-        className="w-full px-4 py-1 focus:outline-none bg-black text-md font-bold text-white rounded-md"
-      >{Key}</div>
-      <p className="font-bold text-xl">:</p>
-      <div
-        className="w-full px-4 py-1 focus:outline-none bg-black text-md font-bold text-white rounded-md"
-      >{Value}</div>
-      <div className="flex space-x-1">
-        <div className="rounded-md bg-black p-1 cursor-pointer flex">
-          <TiFlowChildren className="w-6 h-6 text-gray-400" />
-        </div>
-        <div className="rounded-md bg-black p-1 cursor-pointer flex">
-          <AiFillDelete className="w-6 h-6 text-gray-400" />
-        </div>
-      </div>
-    </div>
-  )
+    <>
+      {Object.entries(data).map((fData: any) => {
+        return (
+          <div>
+          <div key={fData[0]} className="flex space-x-1" >
+            <div className="flex flex-row p-2 bg-[#F4ABC4] rounded-md gap-4 w-fit justify-center items-center my-2">
+              <div className="w-full px-4 py-1 focus:outline-none bg-black text-md font-bold text-white rounded-md">
+                {fData[1].key}
+              </div>
+              <p className="font-bold text-xl">:</p>
+              <div className="w-full px-4 py-1 focus:outline-none bg-black text-md font-bold text-white rounded-md">
+                {fData[1].value}
+              </div>
+              <div className="flex space-x-1">
+                <div className="rounded-md bg-black p-1 cursor-pointer flex">
+                  <AiFillEdit className="w-6 h-6 text-gray-400" />
+                </div>
+                <div className="rounded-md bg-black p-1 cursor-pointer flex">
+                  <AiFillDelete className="w-6 h-6 text-gray-400" />
+                </div>
+              </div>
+            </div>
+            { Object.entries(fData[1].children).length ? 
+            <span className="text-[#F4ABC4] font-semibold text-4xl mt-2 pl-2">{`{`}</span>  : 
+            <span className="text-[#F4ABC4] font-semibold text-4xl mt-8">,</span>}
+            
+          </div>
+          {
+            Object.entries(fData[1].children).length && <>
+              <div className="m-2 ml-8 block">
+                <DisplayAddedChild data={fData[1].children} />
+              </div>
+              <span className="text-[#F4ABC4] font-semibold text-4xl">
+                {`},`}
+              </span>
+            </>
+          }
+          </div>
+        );
+      })}
+    </>
+  );
 }
 
 export default Generator;
