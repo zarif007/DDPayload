@@ -4,6 +4,8 @@ import { RiAddLine } from "react-icons/ri";
 import ShortUniqueId from "short-unique-id";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { TiFlowChildren } from "react-icons/ti";
+import AddNewObject from "../../components/AddNewObject";
+import DisplayAddedChild from "../../components/DisplayAddedChild";
 
 const Generator = () => {
   const {
@@ -49,7 +51,7 @@ const Generator = () => {
   const [data, setData] = useState<any>({});
   const [formattedData, setFormattedData] = useState<any>([]);
 
-  const handleAddChild = (parent: string, currentPair: any) => {
+  const handleAddChild = (parent: any, currentPair: any) => {
 
     const updatedData = data;
 
@@ -61,27 +63,14 @@ const Generator = () => {
         key: currentPair.key,
         value: currentPair.value,
         children: {
-          yyy: {
-            key: 'kothay?',
-            value: 'address',
-            children: {
-              yyy: {
-                key: 'kothay?',
-                value: 'address',
-                children: [],
-                parent: 2,
-              },
-            },
-            parent: 2,
-          },
           yyy1: {
-            key: 'kothay?',
+            key: 'child1?',
             value: 'address',
             children: {
               yyy: {
-                key: 'kothay?',
+                key: 'child2?',
                 value: 'address',
-                children: [],
+                children: {},
                 parent: 2,
               },
             },
@@ -92,7 +81,14 @@ const Generator = () => {
         parent: 1,
       };
     } else {
-      console.log()
+      console.log('parent', parent)
+      // const ooo = {
+      //   keyId: {
+      //     'key': 'orrrrr',
+      //   }
+      // };
+      // Object.assign(parent.children, ooo)
+      // console.log(parent)
     }
 
     setData(updatedData);
@@ -124,7 +120,7 @@ const Generator = () => {
         <main className="m-6 text-black">
 
           {
-            formattedData.length && <DisplayAddedChild data={data} />
+            formattedData.length  && <DisplayAddedChild handleAddChild={handleAddChild} data={data} />
           }
           <AddNewObject handleAddChild={handleAddChild} parent={''} />
         </main>
@@ -134,92 +130,5 @@ const Generator = () => {
   );
 };
 
-
-const AddNewObject = ({handleAddChild, parent}: any) => {
-
-  const [currentPair, setCurrentPair] = useState<{key: string, value: string}>({key: '',
-                                                                               value: ''});
-
-  return (
-    <div className="flex flex-row p-2 bg-[#F4ABC4] rounded-md gap-4 w-1/4 justify-center items-center my-2">
-      <input
-        type="key"
-        className="w-full px-4 py-1 focus:outline-none bg-black text-md font-bold text-white rounded-md"
-        placeholder="Key"
-        onChange={(e) => {
-          const updated = currentPair;
-          updated.key = e.target.value;
-          setCurrentPair(updated)
-        }}
-      />
-      <p className="font-bold text-xl">:</p>
-      <input
-        type="value"
-        className="w-full px-4 py-1 focus:outline-none bg-black text-md font-bold text-white rounded-md"
-        placeholder="Value"
-        onChange={(e) => {
-          const updated = currentPair;
-          updated.value = e.target.value;
-          setCurrentPair(updated)
-        }}
-      />
-      <div className="rounded-md bg-black p-1 cursor-pointer">
-        <RiAddLine className="w-6 h-6 text-gray-400" 
-          onClick={() => {
-            handleAddChild(parent, currentPair);
-            setCurrentPair({key: '', value: ''})
-          }}/>
-      </div>
-    </div>
-  )
-}
-
-
-const DisplayAddedChild = ({data}: any) => {
-
-  return (
-    <>
-      {Object.entries(data).map((fData: any) => {
-        return (
-          <div>
-          <div key={fData[0]} className="flex space-x-1" >
-            <div className="flex flex-row p-2 bg-[#F4ABC4] rounded-md gap-4 w-fit justify-center items-center my-2">
-              <div className="w-full px-4 py-1 focus:outline-none bg-black text-md font-bold text-white rounded-md">
-                {fData[1].key}
-              </div>
-              <p className="font-bold text-xl">:</p>
-              <div className="w-full px-4 py-1 focus:outline-none bg-black text-md font-bold text-white rounded-md">
-                {fData[1].value}
-              </div>
-              <div className="flex space-x-1">
-                <div className="rounded-md bg-black p-1 cursor-pointer flex">
-                  <AiFillEdit className="w-6 h-6 text-gray-400" />
-                </div>
-                <div className="rounded-md bg-black p-1 cursor-pointer flex">
-                  <AiFillDelete className="w-6 h-6 text-gray-400" />
-                </div>
-              </div>
-            </div>
-            { Object.entries(fData[1].children).length ? 
-            <span className="text-[#F4ABC4] font-semibold text-4xl mt-2 pl-2">{`{`}</span>  : 
-            <span className="text-[#F4ABC4] font-semibold text-4xl mt-8">,</span>}
-            
-          </div>
-          {
-            Object.entries(fData[1].children).length && <>
-              <div className="m-2 ml-8 block">
-                <DisplayAddedChild data={fData[1].children} />
-              </div>
-              <span className="text-[#F4ABC4] font-semibold text-4xl">
-                {`},`}
-              </span>
-            </>
-          }
-          </div>
-        );
-      })}
-    </>
-  );
-}
 
 export default Generator;
