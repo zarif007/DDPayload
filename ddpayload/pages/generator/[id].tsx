@@ -63,19 +63,7 @@ const Generator = () => {
         key: currentPair.key,
         value: currentPair.value,
         children: {
-          yyy1: {
-            key: 'child1?',
-            value: 'address',
-            children: {
-              yyy: {
-                key: 'child2?',
-                value: 'address',
-                children: {},
-                parent: 2,
-              },
-            },
-            parent: 2,
-          },
+          
         },
         
         parent: 1,

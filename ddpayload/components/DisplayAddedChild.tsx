@@ -10,7 +10,7 @@ const DisplayAddedChild = ({ data, handleAddChild }: any) => {
       {Object.entries(data).map((fData: any) => {
         return (
           <div>
-            <div key={fData[0]} className="flex space-x-1" onClick={() => {
+            <div key={fData[0]} className="flex space-x-1 items-center" onClick={() => {
                 // const ooo = {
                 //     hati: {
                 //         'key': 'orrrrr',
@@ -33,13 +33,19 @@ const DisplayAddedChild = ({ data, handleAddChild }: any) => {
                   </div>
                 </div>
               </div>
-              {Object.entries(fData[1].children).length ? (
-                <span className="text-[#F4ABC4] font-semibold text-4xl mt-2 pl-2">{`{`}</span>
-              ) : (
-                <span className="text-[#F4ABC4] font-semibold text-4xl mt-8">
-                  ,
-                </span>
-              )}
+              <div>
+                {(fData[1].value.includes('Array') || fData[1].value.includes('Object')) ? (
+                  <span className="text-[#F4ABC4] font-semibold text-5xl pl-2">
+                    {
+                      fData[1].value.includes('Object') ? '{' : '['
+                    }
+                  </span>
+                ) : (
+                  <span className="text-[#F4ABC4] font-semibold text-5xl mt-8">
+                    {fData[1].value.length > 2 && ','}
+                  </span>
+                )}
+              </div>
             </div>
             {/* Children  */}
             {Object.entries(fData[1].children).length && (
@@ -49,13 +55,24 @@ const DisplayAddedChild = ({ data, handleAddChild }: any) => {
                     handleAddChild={handleAddChild}
                     data={fData[1].children}
                   />
-                  <AddNewObject handleAddChild={handleAddChild} parent={fData[0]} />
                 </div>
-                <span className="text-[#F4ABC4] font-semibold text-4xl">
-                  {`},`}
-                </span>
               </>
             )}
+
+            {
+              (fData[1].value.includes('Array') || fData[1].value.includes('Object')) && (
+                <>
+                  <div className="m-2 ml-8 block">
+                    <AddNewObject handleAddChild={handleAddChild} parent={fData[0]} />
+                  </div>
+                  <span className="text-[#F4ABC4] font-semibold text-5xl">
+                    {
+                      fData[1].value.includes('Object') ? '},' : '],'
+                    }
+                  </span>
+                </>
+              ) 
+            }
             
           </div>
         );
