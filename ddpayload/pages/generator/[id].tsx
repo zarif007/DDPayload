@@ -1,9 +1,6 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { RiAddLine } from "react-icons/ri";
+import React, { useState } from "react";
 import ShortUniqueId from "short-unique-id";
-import { AiFillDelete, AiFillEdit } from "react-icons/ai";
-import { TiFlowChildren } from "react-icons/ti";
 import AddNewObject from "../../components/AddNewObject";
 import DisplayAddedChild from "../../components/DisplayAddedChild";
 

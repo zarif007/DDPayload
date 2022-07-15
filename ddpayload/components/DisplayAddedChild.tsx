@@ -1,5 +1,4 @@
 import React from "react";
-import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { RiSettings2Line } from "react-icons/ri";
 import AddNewObject from "./AddNewObject";
 
@@ -9,8 +8,8 @@ const DisplayAddedChild = ({ data, handleAddChild }: any) => {
     <>
       {Object.entries(data).map((fData: any) => {
         return (
-          <div>
-            <div key={fData[0]} className="flex space-x-1 items-center" onClick={() => {
+          <div key={fData[0]}>
+            <div className="flex space-x-1 items-center" onClick={() => {
                 // const ooo = {
                 //     hati: {
                 //         'key': 'orrrrr',
