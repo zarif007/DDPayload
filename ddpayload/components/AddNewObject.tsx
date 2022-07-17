@@ -9,11 +9,11 @@ const AddNewObject = ({ handleAddChild, parent }: any) => {
 
 
   const options = [
-    { value: 'Random Text', label: 'Random Text' },
-    { value: 'Random Username', label: 'Random Username' },
-    { value: 'Random User Image', label: 'Random User Image'},
-    { value: 'Customised Array', label: 'Customised Array' },
-    { value: 'Customised Object', label: 'Customised Object' },
+    { value: 'Random_Text', label: 'Random_Text' },
+    { value: 'Random_Username', label: 'Random_Username' },
+    { value: 'Random_UserImage', label: 'Random_UserImage'},
+    { value: 'Customised_Array', label: 'Customised_Array' },
+    { value: 'Customised_Object', label: 'Customised_Object' },
   ] 
 
   const selectStyle = {
