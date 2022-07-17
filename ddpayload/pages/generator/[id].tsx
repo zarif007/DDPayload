@@ -9,51 +9,12 @@ const Generator = () => {
     query: { id },
   } = useRouter();
 
-  // const data = {
-  //   name: {
-  //     key: 'name',
-  //     value: 'username',
-  //     children: [],
-  //     parent: 1,
-  //   },
-  //   age: {
-  //     key: 'age',
-  //     value: 'age',
-  //     children: [],
-  //     parent: 1,
-  //   },
-  //   what: {
-  //     key: 'what',
-  //     value: 'object',
-  //     children: [
-  //       {
-  //         key: 'kothay?',
-  //         value: 'address',
-  //         children: [],
-  //         parent: 2,
-  //       }
-  //     ],
-  //     parent: 1,
-  //   },
-  //   array: {
-  //     key: 'array',
-  //     value: 'array',
-  //     children: [],
-  //     parent: 1,
-  //   }
-  // };
-
-  // console.log(Object.entries(data))
 
   const [data, setData] = useState<any>({});
   const [formattedData, setFormattedData] = useState<any>([]);
 
-  const handleAddChild = (parent: any, currentPair: any) => {
 
-    const updatedData = data;
-
-    const uid = new ShortUniqueId();
-    const keyId = uid();
+  const findParent = (parent: string, updatedData: any, currentPair: any, keyId: string) => {
 
     if (parent === "") {
       updatedData[keyId] = {
@@ -62,21 +23,44 @@ const Generator = () => {
         children: {
           
         },
-        
-        parent: 1,
       };
-    } else {
-      console.log('parent', parent)
-      // const ooo = {
-      //   keyId: {
-      //     'key': 'orrrrr',
-      //   }
-      // };
-      // Object.assign(parent.children, ooo)
-      // console.log(parent)
+
+      return;
     }
 
+    
+    Object.entries(updatedData).map((ud: any) => {
+
+      if(parent === ud[0]){
+        const ok: any = {}
+
+        ok[keyId] = {
+          key: currentPair.key,
+          value: currentPair.value,
+          children: {
+            
+          },
+        }
+        Object.assign(ud[1].children, ok)
+        return;
+      }
+
+      Object.entries(ud[1].children).length > 0 && 
+        findParent(parent, ud[1].children, currentPair, keyId);
+    })
+  }
+
+  const handleAddChild = (parent: any, currentPair: any) => {
+
+    const updatedData = data;
+
+    const uid = new ShortUniqueId();
+    const keyId = uid();
+
+    findParent(parent, updatedData, currentPair, keyId);
+    
     setData(updatedData);
+    console.log(updatedData)
     formatData();
   };
 
@@ -86,23 +70,23 @@ const Generator = () => {
 
 
   const styles = {
-    curleyBraces: `text-4xl text-[#F4ABC4] font-bold m-3`,
+    curleyBraces: `text-6xl text-[#F4ABC4] font-bold m-3`,
   };
 
   return (
     <div className="text-white max-w-7xl mx-auto">
-      <div className="text-5xl font-bold text-[#F4ABC4] uppercase">
+      <div className="text-5xl font-bold text-[#F4ABC4] uppercase mx-2">
         Playground
       </div>
 
-      <div className="border my-12 min-h-screen  border-[#F4ABC4] rounded-sm">
+      <div className="border my-12 min-h-fit  border-[#F4ABC4] rounded-sm overflow-x-auto mx-2 pb-40">
         <div className="flex space-x-2 font-semibold m-1 text-lg mx-4">
           <button className="hover:text-[#F4ABC4]">Generator</button>
           <button className="hover:text-[#F4ABC4]">Demo</button>
         </div>
 
         <p className={styles.curleyBraces}>{`{`}</p>
-        <main className="m-6 text-black">
+        <main className="m-6 ml-12 text-black">
 
           {
             formattedData.length  && <DisplayAddedChild handleAddChild={handleAddChild} data={data} />

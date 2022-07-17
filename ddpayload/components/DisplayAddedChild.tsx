@@ -6,18 +6,11 @@ import AddNewObject from "./AddNewObject";
 const DisplayAddedChild = ({ data, handleAddChild }: any) => {
   return (
     <>
-      {Object.entries(data).map((fData: any) => {
+      
+      { data === undefined ? 'loading' :  Object.entries(data).map((fData: any) => {
         return (
           <div key={fData[0]}>
-            <div className="flex space-x-1 items-center" onClick={() => {
-                // const ooo = {
-                //     hati: {
-                //         'key': 'orrrrr',
-                //     }
-                // };
-                // Object.assign(fData[1].children, ooo)
-                // console.log(fData[1])
-                }}>
+            <div className="flex space-x-1 items-center" >
               <div className="flex flex-row p-2 bg-[#F4ABC4] rounded-md gap-4 w-fit justify-center items-center my-2">
                 <div className="w-full px-4 py-1 focus:outline-none bg-black text-md font-bold text-white rounded-md">
                   {fData[1].key}
@@ -33,21 +26,21 @@ const DisplayAddedChild = ({ data, handleAddChild }: any) => {
                 </div>
               </div>
               <div>
-                {(fData[1].value.includes('Array') || fData[1].value.includes('Object')) ? (
+                {(fData[1]?.value?.includes('Array') || fData[1]?.value?.includes('Object')) ? (
                   <span className="text-[#F4ABC4] font-semibold text-5xl pl-2">
                     {
-                      fData[1].value.includes('Object') ? '{' : '['
+                      fData[1]?.value?.includes('Object') ? '{' : '['
                     }
                   </span>
                 ) : (
                   <span className="text-[#F4ABC4] font-semibold text-5xl mt-8">
-                    {fData[1].value.length > 2 && ','}
+                    {fData[1]?.value?.length > 2 && ','}
                   </span>
                 )}
               </div>
             </div>
             {/* Children  */}
-            {Object.entries(fData[1].children).length && (
+            {(fData[1].children !== undefined && fData[1].children !== null) && Object.entries(fData[1].children).length && (
               <>
                 <div className="m-2 ml-8 block">
                   <DisplayAddedChild
@@ -59,14 +52,14 @@ const DisplayAddedChild = ({ data, handleAddChild }: any) => {
             )}
 
             {
-              (fData[1].value.includes('Array') || fData[1].value.includes('Object')) && (
+              (fData[1]?.value?.includes('Array') || fData[1]?.value?.includes('Object')) && (
                 <>
                   <div className="m-2 ml-8 block">
                     <AddNewObject handleAddChild={handleAddChild} parent={fData[0]} />
                   </div>
                   <span className="text-[#F4ABC4] font-semibold text-5xl">
                     {
-                      fData[1].value.includes('Object') ? '},' : '],'
+                      fData[1]?.value?.includes('Object') ? '},' : '],'
                     }
                   </span>
                 </>
