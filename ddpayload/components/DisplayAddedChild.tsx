@@ -3,7 +3,7 @@ import { RiSettings2Line } from "react-icons/ri";
 import AddNewObject from "./AddNewObject";
 
 
-const colors = ['#F4ABC4', '#40E0D0', '#FA8072'];
+const colors = ['#F4ABC4', '#F4ABC4', '#F4ABC4'];
 
 const DisplayAddedChild = ({ data, handleAddChild }: any) => {
 
@@ -11,7 +11,7 @@ const DisplayAddedChild = ({ data, handleAddChild }: any) => {
     <>
       { data === undefined ? 'loading' :  Object.entries(data).map((fData: any) => {
         return (
-          <div key={fData[0]} className={`hover:border border-[${(colors[fData[1].counter % colors.length])}] p-1`} >
+          <div key={fData[0]} className={`hover:border border-[${(colors[fData[1].counter % colors.length])}] p-1 w-fit`} >
             <div className="flex space-x-1 items-center" >
               <div className={`flex flex-row p-2 bg-[${(colors[fData[1].counter % colors.length])}] rounded-md gap-4 w-fit justify-center items-center my-2`}>
                 <div className="w-full px-4 py-1 focus:outline-none bg-black text-md font-bold text-white rounded-md">

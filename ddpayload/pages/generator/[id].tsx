@@ -11,8 +11,35 @@ const Generator = () => {
 
 
   const [data, setData] = useState<any>({});
-  const [formattedData, setFormattedData] = useState<any>([]);
+  const [actualdata, setActualData] = useState<any>({});
+  const [arrayfiedData, setArrayfiedData] = useState<any>([]);
 
+
+  const formatData = (updatedData: any) => {
+
+    Object.entries(updatedData).map((ud: any) => {
+      if(ud[1]?.value?.includes('Array') || ud[1]?.value?.includes('Object')){
+        return 0;
+      } else {
+        const dp: any = {};
+
+        dp[ud[1].key] = ud[1].value;
+
+        return dp;
+      }
+    })
+
+    return updatedData
+  }
+
+  const ready = () => {
+
+    const updatedData = data;
+
+    const chk = formatData(updatedData)
+
+    console.log(chk)
+  }
   
   const findParent = (parent: string, updatedData: any, currentPair: any, keyId: string) => {
 
@@ -63,12 +90,11 @@ const Generator = () => {
     findParent(parent, updatedData, currentPair, keyId);
     
     setData(updatedData);
-    console.log(updatedData)
-    formatData();
+    arrayFiedData();
   };
 
-  const formatData = () => {
-    setFormattedData(Object.entries(data));
+  const arrayFiedData = () => {
+    setArrayfiedData(Object.entries(data));
   }
 
 
@@ -82,6 +108,9 @@ const Generator = () => {
         Playground
       </div>
 
+      <button className="px-4 py-1 m-2 bg-[#F4ABC4] rounded-md font-semibold text-lg mt-3 mb-0"
+      onClick={ready}>Ready</button>
+
       <div className="border my-12 min-h-fit  border-[#F4ABC4] rounded-sm overflow-x-auto mx-2 pb-40">
         <div className="flex space-x-2 font-semibold m-1 text-lg mx-4">
           <button className="hover:text-[#F4ABC4]">Generator</button>
@@ -92,7 +121,7 @@ const Generator = () => {
         <main className="m-6 ml-12 text-black">
 
           {
-            formattedData.length  && <DisplayAddedChild handleAddChild={handleAddChild} data={data} />
+            arrayfiedData.length  && <DisplayAddedChild handleAddChild={handleAddChild} data={data} />
           }
           <AddNewObject handleAddChild={handleAddChild} parent={''} />
         </main>
