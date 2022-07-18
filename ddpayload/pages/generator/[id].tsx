@@ -14,19 +14,6 @@ const Generator = () => {
   const [formattedData, setFormattedData] = useState<any>([]);
 
   
-
-  const pickColor = (parentColor: string) => {
-    const colors = ['#F4ABC4', '#19C3C8', '#CD5C5C'];
-
-    if(parentColor === colors[0])
-      return colors[1];
-    
-    if(parentColor === colors[1])
-      return colors[2];
-
-    return colors[0];
-  }
-
   const findParent = (parent: string, updatedData: any, currentPair: any, keyId: string) => {
 
     if (parent === "") {
@@ -36,7 +23,7 @@ const Generator = () => {
         children: {
           
         },
-        color: '#F4ABC4',
+        counter: 0,
       };
 
       return;
@@ -54,8 +41,9 @@ const Generator = () => {
           children: {
             
           },
-          color: pickColor(ud[1].color),
+          counter: ud[1].counter + 1
         }
+
         Object.assign(ud[1].children, ok)
         return;
       }
