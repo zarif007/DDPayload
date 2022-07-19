@@ -43,7 +43,7 @@ const AddNewObject = ({ handleAddChild, parent }: any) => {
   }
 
   return (
-    <div className="flex flex-row p-2 bg-[#F4ABC4] rounded-md gap-4 w-fit justify-center items-center my-2">
+    <div className="flex flex-row p-2 m-1 bg-[#F4ABC4] rounded-md gap-4 w-fit justify-center items-center my-2">
       <input
         type="key"
         className="w-full px-4 py-2 focus:outline-none bg-black text-md font-bold text-white rounded-md"

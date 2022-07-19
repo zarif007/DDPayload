@@ -11,7 +11,7 @@ const DisplayAddedChild = ({ data, handleAddChild }: any) => {
     <>
       { data === undefined ? 'loading' :  Object.entries(data).map((fData: any) => {
         return (
-          <div key={fData[0]} className={`hover:border border-[${(colors[fData[1].counter % colors.length])}] p-1 w-fit`} >
+          <div key={fData[0]} className={`border border-black hover:border-[${(colors[fData[1].counter % colors.length])}] p-1 w-fit`} >
             <div className="flex space-x-1 items-center" >
               <div className={`flex flex-row p-2 bg-[${(colors[fData[1].counter % colors.length])}] rounded-md gap-4 w-fit justify-center items-center my-2`}>
                 <div className="w-full px-4 py-1 focus:outline-none bg-black text-md font-bold text-white rounded-md">
@@ -42,7 +42,7 @@ const DisplayAddedChild = ({ data, handleAddChild }: any) => {
               </div>
             </div>
             {/* Children  */}
-            {(fData[1].children !== undefined && fData[1].children !== null) && Object.entries(fData[1].children).length && (
+            {(fData[1].children !== undefined && fData[1].children !== null) && Object.entries(fData[1].children).length > 0 && (
               <>
                 <div className="m-2 ml-8 block">
                   <DisplayAddedChild

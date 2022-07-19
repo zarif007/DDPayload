@@ -119,9 +119,8 @@ const Generator = () => {
 
         <p className={styles.curleyBraces}>{`{`}</p>
         <main className="m-6 ml-12 text-black">
-
           {
-            arrayfiedData.length  && <DisplayAddedChild handleAddChild={handleAddChild} data={data} />
+            arrayfiedData.length > 0 ? <DisplayAddedChild handleAddChild={handleAddChild} data={data} /> : <></>
           }
           <AddNewObject handleAddChild={handleAddChild} parent={''} />
         </main>
