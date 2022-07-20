@@ -21,24 +21,31 @@ const Generator = () => {
       if(ud[1]?.value?.includes('Array') || ud[1]?.value?.includes('Object')){
         return 0;
       } else {
-        const dp: any = {};
+        // const dp: any = {};
 
-        dp[ud[1].key] = ud[1].value;
+        // dp[ud[1].key] = ud[1].value;
 
-        return dp;
+        // return dp;
+
+        const dp: any = actualdata;
+
+        if(ud[1].couter == 0){
+          dp[ud[1].key] = ud[1].value;
+          setActualData(dp);
+        } else {
+          
+        }
       }
     })
-
-    return updatedData
   }
 
   const ready = () => {
 
     const updatedData = data;
 
-    const chk = formatData(updatedData)
+    formatData(updatedData)
 
-    console.log(chk)
+    console.log(actualdata)
   }
   
   const findParent = (parent: string, updatedData: any, currentPair: any, keyId: string) => {
