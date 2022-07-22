@@ -110,7 +110,7 @@ const Generator = () => {
   };
 
   return (
-    <div className="text-white max-w-7xl mx-auto">
+    <div className="text-white max-w-7xl mx-auto ">
       <div className="text-5xl font-bold text-[#F4ABC4] uppercase mx-2">
         Playground
       </div>
@@ -118,7 +118,7 @@ const Generator = () => {
       <button className="px-4 py-1 m-2 bg-[#F4ABC4] rounded-md font-semibold text-lg mt-3 mb-0"
       onClick={ready}>Ready</button>
 
-      <div className="border my-12 min-h-fit  border-[#F4ABC4] rounded-sm overflow-x-auto mx-2 pb-40">
+      <div className="border-2 my-12 min-h-fit  border-[#F4ABC4] rounded-md overflow-x-auto mx-2 pb-40 bg-black">
         <div className="flex space-x-2 font-semibold m-1 text-lg mx-4">
           <button className="hover:text-[#F4ABC4]">Generator</button>
           <button className="hover:text-[#F4ABC4]">Demo</button>
