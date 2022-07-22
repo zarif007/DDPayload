@@ -11,7 +11,7 @@ const DisplayAddedChild = ({ data, handleAddChild }: any) => {
       {data === undefined
         ? "loading"
         : Object.entries(data).map((fData: any) => {
-            return <RenderChild handleAddChild={handleAddChild} fData={fData} />;
+            return <RenderChild key={fData[0]} handleAddChild={handleAddChild} fData={fData} />;
           })}
     </>
   );
@@ -28,7 +28,6 @@ const RenderChild = ({ fData, handleAddChild }: any) => {
 
   return (
     <div
-      key={fData[0]}
       className={`border border-black hover:border-[#F4ABC4] p-1 w-fit`}
     >
       <div className="flex space-x-1 items-center">
