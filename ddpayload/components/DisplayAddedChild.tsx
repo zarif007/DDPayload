@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { RiSettings2Line } from "react-icons/ri";
 import AddNewObject from "./AddNewObject";
 
-const colors = ["#F4ABC4", "#F4ABC4", "#F4ABC4"];
+const colors = ["#F4ABC4", "#5DADE2", "#40E0D0"];
 
 const DisplayAddedChild = ({ data, handleAddChild }: any) => {
   
@@ -19,21 +19,21 @@ const DisplayAddedChild = ({ data, handleAddChild }: any) => {
 
 const RenderChild = ({ fData, handleAddChild }: any) => {
 
-  // const [color, setColor] = useState<string>(colors[fData[1].counter % colors.length]);
+  const [color, setColor] = useState<string>(colors[fData[1].counter % colors.length]);
 
-  // useEffect(() => {
-  //   setColor(colors[fData[1].counter % colors.length]);
-  //   console.log(color, colors[fData[1].counter % colors.length])
-  // }, [fData])
+  useEffect(() => {
+    setColor(colors[fData[1].counter % colors.length]);
+    console.log(color, colors[fData[1].counter % colors.length])
+  }, [fData])
 
   return (
     <div
-      className={`border border-black hover:border-[#F4ABC4] p-1 w-fit`}
+      className={`border border-black hover:border-[${color}] p-1 w-fit`}
     >
       <div className="flex space-x-1 items-center">
         <div
           className={`flex flex-row p-2 bg-[${
-            colors[fData[1].counter % colors.length]
+            color
           }] rounded-md gap-4 w-fit justify-center items-center my-2`}
         >
           <div className="w-full px-4 py-1 focus:outline-none bg-black text-md font-bold text-white rounded-md">
@@ -54,7 +54,7 @@ const RenderChild = ({ fData, handleAddChild }: any) => {
           fData[1]?.value?.includes("Object") ? (
             <span
               className={`text-[${
-                colors[fData[1].counter % colors.length]
+                color
               }] font-semibold text-5xl pl-2`}
             >
               {fData[1]?.value?.includes("Object") ? "{" : "["}
@@ -62,7 +62,7 @@ const RenderChild = ({ fData, handleAddChild }: any) => {
           ) : (
             <span
               className={`text-[${
-                colors[fData[1].counter % colors.length]
+                color
               }] font-semibold text-5xl mt-8`}
             >
               {fData[1]?.value?.length > 2 && ","}
@@ -92,7 +92,7 @@ const RenderChild = ({ fData, handleAddChild }: any) => {
           </div>
           <span
             className={`text-[${
-              colors[fData[1].counter % colors.length]
+              color
             }] font-semibold text-5xl`}
           >
             {fData[1]?.value?.includes("Object") ? "}," : "],"}

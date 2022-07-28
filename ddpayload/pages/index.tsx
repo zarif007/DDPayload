@@ -14,6 +14,8 @@ const Home: NextPage = () => {
 
 
       {/* F4ABC4 */}
+      {/* #5DADE2  */}
+      {/* #40E0D0  */}
       <Banner />
 
 
