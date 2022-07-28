@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import ShortUniqueId from "short-unique-id";
@@ -45,7 +46,7 @@ const Generator = () => {
 
     formatData(updatedData)
 
-    console.log(actualdata)
+    console.log(data)
   }
   
   const findParent = (parent: string, updatedData: any, currentPair: any, keyId: string) => {
@@ -111,6 +112,16 @@ const Generator = () => {
 
   return (
     <div className="text-white max-w-7xl mx-auto ">
+
+      <Head>
+        <title>DD Payload</title>
+        <meta name="description" content="Generated apis" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com"  />
+        <link href="https://fonts.googleapis.com/css2?family=Saira:wght@500&display=swap" rel="stylesheet"></link>
+      </Head>
+      
       <div className="text-5xl font-bold text-[#F4ABC4] uppercase mx-2">
         Playground
       </div>
