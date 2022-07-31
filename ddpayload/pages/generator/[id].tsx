@@ -49,7 +49,17 @@ const Generator = () => {
     console.log(data)
   }
   
-  const findParent = (parent: string, updatedData: any, currentPair: any, keyId: string) => {
+  const findParentAndAdd = (parent: string, updatedData: any, currentPair: any, keyId: string) => {
+
+
+    let type: string = "";
+
+        if(currentPair.value.includes("Array"))
+          type = 'array'
+        else if(currentPair.value.includes("Object"))
+          type = 'object'
+        else 
+          type = 'string'
 
     if (parent === "") {
       updatedData[keyId] = {
@@ -59,6 +69,7 @@ const Generator = () => {
           
         },
         counter: 0,
+        type,
       };
 
       return;
@@ -76,7 +87,8 @@ const Generator = () => {
           children: {
             
           },
-          counter: ud[1].counter + 1
+          counter: ud[1].counter + 1,
+          type,
         }
 
         Object.assign(ud[1].children, ok)
@@ -84,7 +96,7 @@ const Generator = () => {
       }
 
       Object.entries(ud[1].children).length > 0 && 
-        findParent(parent, ud[1].children, currentPair, keyId);
+        findParentAndAdd(parent, ud[1].children, currentPair, keyId);
     })
   }
 
@@ -95,7 +107,7 @@ const Generator = () => {
     const uid = new ShortUniqueId();
     const keyId = uid();
 
-    findParent(parent, updatedData, currentPair, keyId);
+    findParentAndAdd(parent, updatedData, currentPair, keyId);
     
     setData(updatedData);
     arrayFiedData();
@@ -127,7 +139,13 @@ const Generator = () => {
       </div>
 
       <button className="px-4 py-1 m-2 bg-[#F4ABC4] rounded-md font-semibold text-lg mt-3 mb-0"
-      onClick={ready}>Ready</button>
+        onClick={ready}>Ready</button>
+
+      <button className="px-4 py-1 m-2 bg-[#5DADE2] rounded-md font-semibold text-lg mt-3 mb-0"
+        onClick={ready}>Ready</button>
+
+      <button className="px-4 py-1 m-2 bg-[#40E0D0] rounded-md font-semibold text-lg mt-3 mb-0"
+        onClick={ready}>Ready</button>
 
       <div className="border-2 my-12 min-h-fit  border-[#F4ABC4] rounded-md overflow-x-auto mx-2 pb-40 bg-black">
         <div className="flex space-x-2 font-semibold m-1 text-lg mx-4">
@@ -138,9 +156,9 @@ const Generator = () => {
         <p className={styles.curleyBraces}>{`{`}</p>
         <main className="m-6 ml-12 text-black">
           {
-            arrayfiedData.length > 0 ? <DisplayAddedChild handleAddChild={handleAddChild} data={data} /> : <></>
+            arrayfiedData.length > 0 ? <DisplayAddedChild handleAddChild={handleAddChild} data={data} parent={['']} /> : <></>
           }
-          <AddNewObject handleAddChild={handleAddChild} parent={''} />
+          <AddNewObject handleAddChild={handleAddChild} parent={['']} />
         </main>
         <p className={styles.curleyBraces}>{`}`}</p>
       </div>

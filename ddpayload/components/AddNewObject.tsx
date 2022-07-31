@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RiAddLine } from "react-icons/ri";
 import Select from 'react-select'
 
@@ -7,6 +7,14 @@ import Select from 'react-select'
 const AddNewObject = ({ handleAddChild, parent }: any) => {
   const [currentPair, setCurrentPair] = useState<{key: string;value: string;}>({ key: "", value: "" });
 
+  useEffect(() => {
+    if(parent && parent[1]?.type === 'array') {
+      setCurrentPair({ key: Object.entries(parent[1].children).length.toString(), value: "" })
+    }
+
+    
+
+  }, [parent])
 
   const options = [
     { value: 'Random_Text', label: 'Random_Text' },
@@ -44,17 +52,32 @@ const AddNewObject = ({ handleAddChild, parent }: any) => {
 
   return (
     <div className="flex flex-row p-2 m-1 bg-[#F4ABC4] rounded-md gap-4 w-fit justify-center items-center my-2">
-      <input
-        type="key"
-        className="w-full px-4 py-2 focus:outline-none bg-black text-md font-bold text-white rounded-md"
-        placeholder="Key"
-        onChange={(e) => {
-          const updated = currentPair;
-          updated.key = e.target.value;
-          setCurrentPair(updated);
-        }}
-      />
-      <p className="font-bold text-xl">:</p>
+
+      <div>
+      {
+        parent[1]?.type === 'array' ? <div 
+          className={`w-full px-4 py-2 focus:outline-none bg-black text-md font-bold text-white rounded-md`}>
+            {currentPair.key}
+        </div> : <input
+          type="key"
+          className={`w-full px-4 py-2 focus:outline-none bg-black text-md font-bold text-white rounded-md`}
+          placeholder="Key"
+          onChange={(e) => {
+            const updated = currentPair;
+            updated.key = e.target.value;
+            setCurrentPair(updated);
+          }}
+        />
+      }
+      </div>
+      
+      <p className="font-bold text-xl">
+        {
+          parent[1]?.type === 'array' ? '=' : ':'
+        }
+      </p>
+
+
       <Select
         name={'Value'}
         options={options}
@@ -82,7 +105,7 @@ const AddNewObject = ({ handleAddChild, parent }: any) => {
         <RiAddLine
           className="w-6 h-6 text-gray-400"
           onClick={() => {
-            handleAddChild(parent, currentPair);
+            handleAddChild(parent[0], currentPair);
             setCurrentPair({ key: "", value: "" });
           }}
         />
