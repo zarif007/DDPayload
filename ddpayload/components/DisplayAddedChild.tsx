@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { RiSettings2Line } from "react-icons/ri";
 import AddNewObject from "./AddNewObject";
 
-// const colors = ["#F4ABC4", "#5DADE2", "#40E0D0"];
+const colors = ["#F4ABC4", "#5DADE2", "#40E0D0"];
 
 
-const colors = ["#F4ABC4", "#F4ABC4", "#F4ABC4"];
+// const colors = ["#F4ABC4", "#F4ABC4", "#F4ABC4"];
 
 const DisplayAddedChild = ({ data, handleAddChild, parent }: any) => {
   
@@ -32,6 +32,14 @@ const RenderChild = ({ fData, handleAddChild, parent }: any) => {
     <div
       className={`border border-black hover:border-[${color}] p-1 w-fit`}
     >
+
+      <div className="hidden">
+        <p className="text-[#F4ABC4]">hi</p>
+        <p className="text-[#5DADE2]">hi</p>
+        <p className="text-[#40E0D0]">hi</p>
+      </div>
+
+
       <div className="flex space-x-1 items-center">
         <div
           className={`flex flex-row p-2 bg-[${
@@ -88,7 +96,7 @@ const RenderChild = ({ fData, handleAddChild, parent }: any) => {
         )}
 
       {(fData[1]?.type === 'array'  ||
-        fData[1]?.value?.includes("Object")) && (
+        fData[1]?.type === 'object') && (
         <>
           <div className="m-2 ml-8 block">
             <AddNewObject handleAddChild={handleAddChild} parent={fData} />

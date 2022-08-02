@@ -1,54 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { RiAddLine } from "react-icons/ri";
-import Select from 'react-select'
-
+import { useRecoilState } from "recoil";
+import { currentValue } from "../atoms/currentValueAtom";
+import { valueModalState } from "../atoms/valueModalAtom";
 
 
 const AddNewObject = ({ handleAddChild, parent }: any) => {
   const [currentPair, setCurrentPair] = useState<{key: string;value: string;}>({ key: "", value: "" });
 
+  const [isValueModalOpen, setIsValueModalOpen] = useRecoilState(valueModalState);
+
+  const [cValue, setCValue] = useRecoilState(currentValue);
+
+
+  useEffect(() => {
+    setCurrentPair({ key: "", value: "" })
+  }, [])
+
+
+  useEffect(() => {
+    const up = currentPair;
+
+    up.value = cValue;
+
+    setCurrentPair(up)
+  }, [cValue])
+
   useEffect(() => {
     if(parent && parent[1]?.type === 'array') {
-      setCurrentPair({ key: Object.entries(parent[1].children).length.toString(), value: "" })
-    }
-
-    
-
-  }, [parent])
-
-  const options = [
-    { value: 'Random_Text', label: 'Random_Text' },
-    { value: 'Random_Username', label: 'Random_Username' },
-    { value: 'Random_UserImage', label: 'Random_UserImage'},
-    { value: 'Customised_Array', label: 'Customised_Array' },
-    { value: 'Customised_Object', label: 'Customised_Object' },
-  ] 
-
-  const selectStyle = {
-    valueContainer: (base: any) => ({
-        ...base,
-        background: `${"black"}`,
-    }),
-    control: (base: any, state: any) => ({
-        ...base,
-        border: `${"black"}`,
-        background: `${"black"}`,
-    }),
-    menuList: (styles: any) => ({
-        ...styles,
-        background: `${"black"}`,
-    }),
-    placeholder: (defaultStyles: any) => {
-        return {
-            ...defaultStyles,
-            color: `${"#a1a1aa"}`,
-        };
-    },
-  };
-
-  const styles = {
-    select: `basic-multi-select w-full px-4 bg-black text-md font-bold text-white rounded-md`,
-  }
+      console.log(Object.entries(parent[1].children).length.toString())
+      setCurrentPair({ key: Object.entries(parent[1].children).length.toString(), value: currentPair.value })
+    }    
+  }, [parent]);
 
   return (
     <div className="flex flex-row p-2 m-1 bg-[#F4ABC4] rounded-md gap-4 w-fit justify-center items-center my-2">
@@ -78,38 +61,24 @@ const AddNewObject = ({ handleAddChild, parent }: any) => {
       </p>
 
 
-      <Select
-        name={'Value'}
-        options={options}
-        className={styles.select}
-        classNamePrefix={`Value`}
-        placeholder={'Value'}
-        theme={(theme) => ({
-            ...theme,
-            borderRadius: 0,
-            colors: {
-            ...theme.colors,
-            primary25: 'liteblue',
-            primary: 'black',
-            neutral50: '#1A1A1A',
-            },
-        })}
-        onChange={(e: any) => {
-          const updated = currentPair;
-          updated.value = e.value;
-          setCurrentPair(updated);
-        }}
-        styles={selectStyle}
-      />
+      <div 
+        className={`w-full px-4 py-2 focus:outline-none bg-black text-md font-bold text-gray-400 rounded-md cursor-pointer`}
+        onClick={() => setIsValueModalOpen(true)}>
+        {
+          currentPair.value === '' ? 'Value' : currentPair.value
+        }
+      </div>
+
       <div className="rounded-md bg-black p-1 cursor-pointer">
         <RiAddLine
           className="w-6 h-6 text-gray-400"
           onClick={() => {
             handleAddChild(parent[0], currentPair);
-            setCurrentPair({ key: "", value: "" });
+            setCValue('')
           }}
         />
       </div>
+
     </div>
   );
 };

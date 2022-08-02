@@ -2,7 +2,6 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Banner from '../components/Banner'
 
-
 const Home: NextPage = () => {
   return (
     <div className=''>
@@ -20,7 +19,6 @@ const Home: NextPage = () => {
       {/* #5DADE2  */}
       {/* #40E0D0  */}
       <Banner />
-
 
     </div>
   )

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import ShortUniqueId from "short-unique-id";
 import AddNewObject from "../../components/AddNewObject";
 import DisplayAddedChild from "../../components/DisplayAddedChild";
+import ValueModal from "../../components/modals/ValueModal";
 
 const Generator = () => {
   const {
@@ -54,9 +55,9 @@ const Generator = () => {
 
     let type: string = "";
 
-        if(currentPair.value.includes("Array"))
+        if(currentPair.value.includes("array"))
           type = 'array'
-        else if(currentPair.value.includes("Object"))
+        else if(currentPair.value.includes("object"))
           type = 'object'
         else 
           type = 'string'
@@ -106,6 +107,8 @@ const Generator = () => {
 
     const uid = new ShortUniqueId();
     const keyId = uid();
+
+    console.log('pppp', parent)
 
     findParentAndAdd(parent, updatedData, currentPair, keyId);
     
@@ -162,6 +165,9 @@ const Generator = () => {
         </main>
         <p className={styles.curleyBraces}>{`}`}</p>
       </div>
+
+      <ValueModal />
+
     </div>
   );
 };
