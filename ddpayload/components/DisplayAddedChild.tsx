@@ -11,6 +11,11 @@ const DisplayAddedChild = ({ data, handleAddChild, parent }: any) => {
   
   return (
     <>
+      <div className="hidden">
+        <p className="text-[#F4ABC4]">hi</p>
+        <p className="text-[#5DADE2]">hi</p>
+        <p className="text-[#40E0D0]">hi</p>
+      </div>
       {data === undefined
         ? "loading"
         : Object.entries(data).map((fData: any) => {
@@ -32,14 +37,6 @@ const RenderChild = ({ fData, handleAddChild, parent }: any) => {
     <div
       className={`border border-black hover:border-[${color}] p-1 w-fit`}
     >
-
-      <div className="hidden">
-        <p className="text-[#F4ABC4]">hi</p>
-        <p className="text-[#5DADE2]">hi</p>
-        <p className="text-[#40E0D0]">hi</p>
-      </div>
-
-
       <div className="flex space-x-1 items-center">
         <div
           className={`flex flex-row p-2 bg-[${

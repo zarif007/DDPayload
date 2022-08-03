@@ -5,6 +5,8 @@ import { currentValue } from "../atoms/currentValueAtom";
 import { valueModalState } from "../atoms/valueModalAtom";
 
 
+const colors = ["#F4ABC4", "#5DADE2", "#40E0D0"];
+
 const AddNewObject = ({ handleAddChild, parent }: any) => {
   const [currentPair, setCurrentPair] = useState<{key: string;value: string;}>({ key: "", value: "" });
 
@@ -12,6 +14,7 @@ const AddNewObject = ({ handleAddChild, parent }: any) => {
 
   const [cValue, setCValue] = useRecoilState(currentValue);
 
+  const [color, setColor] = useState<string>('#F4ABC4');
 
   useEffect(() => {
     setCurrentPair({ key: "", value: "" })
@@ -29,13 +32,25 @@ const AddNewObject = ({ handleAddChild, parent }: any) => {
   useEffect(() => {
     if(parent && parent[1]?.type === 'array') {
       console.log(Object.entries(parent[1].children).length.toString())
-      setCurrentPair({ key: Object.entries(parent[1].children).length.toString(), value: currentPair.value })
+      setCurrentPair({ key: Object.entries(parent[1].children).length.toString(), value: currentPair.value });
     }    
+
+    if(parent[1]?.counter >= 0) {
+      setColor(colors[(parent[1]?.counter + 1) % colors.length]);
+
+      console.log(color, parent)
+    }
+
   }, [parent]);
 
   return (
-    <div className="flex flex-row p-2 m-1 bg-[#F4ABC4] rounded-md gap-4 w-fit justify-center items-center my-2">
-
+    <>
+    <div className="hidden">
+        <p className="text-[#F4ABC4]">hi</p>
+        <p className="text-[#5DADE2]">hi</p>
+        <p className="text-[#40E0D0]">hi</p>
+      </div>
+    <div className={`flex flex-row p-2 m-1 bg-[${color}] rounded-md gap-4 w-fit justify-center items-center my-2`}>
       <div>
       {
         parent[1]?.type === 'array' ? <div 
@@ -80,6 +95,7 @@ const AddNewObject = ({ handleAddChild, parent }: any) => {
       </div>
 
     </div>
+    </>
   );
 };
 
