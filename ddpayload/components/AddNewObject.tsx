@@ -31,14 +31,11 @@ const AddNewObject = ({ handleAddChild, parent }: any) => {
 
   useEffect(() => {
     if(parent && parent[1]?.type === 'array') {
-      console.log(Object.entries(parent[1].children).length.toString())
       setCurrentPair({ key: Object.entries(parent[1].children).length.toString(), value: currentPair.value });
     }    
 
     if(parent[1]?.counter >= 0) {
       setColor(colors[(parent[1]?.counter + 1) % colors.length]);
-
-      console.log(color, parent)
     }
 
   }, [parent]);

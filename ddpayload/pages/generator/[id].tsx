@@ -5,6 +5,7 @@ import ShortUniqueId from "short-unique-id";
 import AddNewObject from "../../components/AddNewObject";
 import DisplayAddedChild from "../../components/DisplayAddedChild";
 import ValueModal from "../../components/modals/ValueModal";
+import formatData from './../../functions/FormatData';
 
 const Generator = () => {
   const {
@@ -17,37 +18,13 @@ const Generator = () => {
   const [arrayfiedData, setArrayfiedData] = useState<any>([]);
 
 
-  const formatData = (updatedData: any) => {
-
-    Object.entries(updatedData).map((ud: any) => {
-      if(ud[1]?.value?.includes('Array') || ud[1]?.value?.includes('Object')){
-        return 0;
-      } else {
-        // const dp: any = {};
-
-        // dp[ud[1].key] = ud[1].value;
-
-        // return dp;
-
-        const dp: any = actualdata;
-
-        if(ud[1].couter == 0){
-          dp[ud[1].key] = ud[1].value;
-          setActualData(dp);
-        } else {
-          
-        }
-      }
-    })
-  }
-
   const ready = () => {
 
     const updatedData = data;
 
-    formatData(updatedData)
+    const nw: any = formatData(updatedData)
 
-    console.log(data)
+    console.log(nw)
   }
   
   const findParentAndAdd = (parent: string, updatedData: any, currentPair: any, keyId: string) => {
@@ -55,20 +32,18 @@ const Generator = () => {
 
     let type: string = "";
 
-        if(currentPair.value.includes("array"))
-          type = 'array'
-        else if(currentPair.value.includes("object"))
-          type = 'object'
-        else 
-          type = 'string'
+    if(currentPair.value.includes("array"))
+      type = 'array'
+    else if(currentPair.value.includes("object"))
+      type = 'object'
+    else 
+      type = 'string'
 
     if (parent === "") {
       updatedData[keyId] = {
         key: currentPair.key,
         value: currentPair.value,
-        children: {
-          
-        },
+        children: {},
         counter: 0,
         type,
       };
@@ -107,8 +82,6 @@ const Generator = () => {
 
     const uid = new ShortUniqueId();
     const keyId = uid();
-
-    console.log('pppp', parent)
 
     findParentAndAdd(parent, updatedData, currentPair, keyId);
     
