@@ -1,5 +1,5 @@
 import { Dialog, Transition, Disclosure } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { useRecoilState } from "recoil";
 import { valueModalState } from "./../../atoms/valueModalAtom";
 import { ChevronUpIcon } from '@heroicons/react/solid';
@@ -13,8 +13,9 @@ const Options = [
       {Name: 'Cutomised Array', Value: 'cutomised_array'},
       {Name: 'Array of Random User Images', Value: 'random_userimage_array'},
       {Name: 'Array of Random Images', Value: 'random_image_array'},
-      {Name: 'Array of Random User Name', Value: 'random_username_array'},
-      {Name: 'Array of Random Text', Value: 'random_text_array'},
+      {Name: 'Array of Random User Names', Value: 'random_username_array'},
+      {Name: 'Array of Random Texts', Value: 'random_text_array'},
+      {Name: 'Array of Random Numbers', Value: 'random_number_array'},
     ]
   },
   {
@@ -30,6 +31,20 @@ const Options = [
       {Name: 'Cutomised Object', Value: 'cutomised_object'},
     ]
   },
+  {
+    Topic: 'Image',
+    subOptions: [
+      {Name: 'Random Image', Value: 'Random_Image'},
+      {Name: 'Random UserImage', Value: 'Random_UserImage'},
+    ]
+  },
+  {
+    Topic: 'Number',
+    subOptions: [
+      {Name: 'Random Number', Value: 'Random_Number'},
+      {Name: 'Select a Number', Value: 'Select_A_Number'},
+    ]
+  },
 ]
 
 const ValueModal = () => {
@@ -38,6 +53,8 @@ const ValueModal = () => {
 
 
   const [value, setValue] = useRecoilState(currentValue);
+
+  const [selectedValue, setSelectedValue] = useState<string>('');
 
   return (
     <Transition appear show={isValueModalOpen} as={Fragment}>
@@ -74,7 +91,7 @@ const ValueModal = () => {
                 </Dialog.Title>
 
                 <div className="w-full pt-4">
-                  <div className="mx-auto w-full max-w-2xl rounded-xl bg-black border-2 border-gray-600 p-2">
+                  <div className="mx-auto w-full max-w-2xl rounded-xl bg-black  p-2">
 
                     {
                       Options.map((option: any) => {
@@ -82,7 +99,7 @@ const ValueModal = () => {
                           <Disclosure key={option.Topic}>
                             {({ open }) => (
                               <>
-                                <Disclosure.Button className="my-1 flex w-full justify-between rounded-md bg-[#f9d1df] px-4 py-2 text-left text-lg font-medium text-gray-900 hover:bg-[#F4ABC4] focus:outline-none focus-visible:ring focus-visible:ring-[#F4ABC4] focus-visible:ring-opacity-75">
+                                <Disclosure.Button className="my-1 flex w-full justify-between rounded-md border-2 border-gray-700 px-4 py-2 text-left text-lg font-medium text-gray-200 hover:text-[#F4ABC4] focus:outline-none focus-visible:ring focus-visible:ring-[#F4ABC4] focus-visible:ring-opacity-75">
                                   <span>{option.Topic}</span>
                                   <ChevronUpIcon
                                     className={`${
@@ -98,8 +115,11 @@ const ValueModal = () => {
                                         return (
                                           <div 
                                             key={subO.Name} 
-                                            className="cursor-pointer flex w-full justify-between rounded-md bg-[#f9d1df] px-4 py-2 text-left text-lg font-medium text-gray-900 hover:bg-[#F4ABC4] focus:outline-none focus-visible:ring focus-visible:ring-[#F4ABC4] focus-visible:ring-opacity-75"
-                                            onClick={() => {setValue(subO.Value)}}>
+                                            className="cursor-pointer flex w-full justify-between rounded-md border-2 border-gray-700 px-4 py-2 text-left text-lg font-medium text-gray-200 hover:text-[#F4ABC4] focus:outline-none focus-visible:ring focus-visible:ring-[#F4ABC4] focus-visible:ring-opacity-75"
+                                            onClick={() => {
+                                                setValue(subO.Value);
+                                                setSelectedValue(subO.Name)
+                                              }}>
                                               {subO.Name}
                                             </div>
                                         )
@@ -118,7 +138,8 @@ const ValueModal = () => {
                   </div>
                 </div>
 
-                <div className="mt-4">
+                <div className="mt-4 flex justify-between">
+                  <div className="text-gray-300 text-sm font-semibold ml-3">{selectedValue}</div>
                   <button
                     type="button"
                     className="inline-flex justify-center rounded-md border border-transparent bg-[#f9d1df] px-4 py-2 text-lg font-medium text-gray-900 hover:bg-[#F4ABC4] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f9d1df] focus-visible:ring-offset-2"
@@ -126,6 +147,7 @@ const ValueModal = () => {
                   >
                     Done
                   </button>
+                  
                 </div>
               </Dialog.Panel>
             </Transition.Child>
