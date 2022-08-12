@@ -129,14 +129,14 @@ const Generator = () => {
           <button className="hover:text-[#F4ABC4]">Demo</button>
         </div>
 
-        <p className={styles.curleyBraces}>{`{`}</p>
+        <p className={styles.curleyBraces}>{`Data = [{`}</p>
         <main className="m-6 ml-12 text-black">
           {
             arrayfiedData.length > 0 ? <DisplayAddedChild handleAddChild={handleAddChild} data={data} parent={['']} /> : <></>
           }
           <AddNewObject handleAddChild={handleAddChild} parent={['']} />
         </main>
-        <p className={styles.curleyBraces}>{`}`}</p>
+        <p className={styles.curleyBraces}>{`}, ]`}</p>
       </div>
 
       <ValueModal />

@@ -27,21 +27,11 @@ const DisplayAddedChild = ({ data, handleAddChild, parent }: any) => {
 
 const RenderChild = ({ fData, handleAddChild, parent }: any) => {
 
-  const [color, setColor] = useState<string>(colors[fData[1].counter % colors.length]);
-
-  const [showBorder, setShowBorder] = useState<boolean>(false);
-
-  useEffect(() => {
-    setColor(colors[fData[1].counter % colors.length]);
-  }, [fData])
+  const [color] = useState<string>(colors[fData[1].counter % colors.length]);
 
   return (
     <div
-      className={`cursor-pointer border ${showBorder ? `border-[${color}]`: 'border-black'} p-1 w-fit`}
-      onClick={() => {
-        setShowBorder(!showBorder);
-        console.log(showBorder)
-      }}
+      className={`cursor-pointer p-1 w-fit`}
     >
       <div className="flex space-x-1 items-center">
         <div
