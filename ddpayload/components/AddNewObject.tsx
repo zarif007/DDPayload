@@ -3,6 +3,7 @@ import { RiAddLine } from "react-icons/ri";
 import { useRecoilState } from "recoil";
 import { currentValue } from "../atoms/currentValueAtom";
 import { valueModalState } from "../atoms/valueModalAtom";
+import { globalData } from './../atoms/globalData';
 
 const colors = ["#F4ABC4", "#5DADE2", "#40E0D0"];
 

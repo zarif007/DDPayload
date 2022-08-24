@@ -1,11 +1,13 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import { useRecoilState } from "recoil";
 import ShortUniqueId from "short-unique-id";
 import AddNewObject from "../../components/AddNewObject";
 import DisplayAddedChild from "../../components/DisplayAddedChild";
 import ValueModal from "../../components/modals/ValueModal";
 import formatData from './../../functions/FormatData';
+import { globalData } from './../../atoms/globalData';
 
 const Generator = () => {
   const {
@@ -16,7 +18,6 @@ const Generator = () => {
   const [data, setData] = useState<any>({});
   const [actualdata, setActualData] = useState<any>({});
   const [arrayfiedData, setArrayfiedData] = useState<any>([]);
-
 
   const ready = () => {
 
@@ -76,7 +77,7 @@ const Generator = () => {
     })
   }
 
-  const handleAddChild = (parent: any, currentPair: any) => {
+  const handleAddChild = async (parent: any, currentPair: any) => {
 
     const updatedData = data;
 
