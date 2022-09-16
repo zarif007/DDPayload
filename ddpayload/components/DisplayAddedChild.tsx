@@ -4,9 +4,6 @@ import AddNewObject from "./AddNewObject";
 
 const colors = ["#F4ABC4", "#5DADE2", "#40E0D0"];
 
-
-// const colors = ["#F4ABC4", "#F4ABC4", "#F4ABC4"];
-
 const DisplayAddedChild = ({ data, handleAddChild, parent }: any) => {
   
   return (

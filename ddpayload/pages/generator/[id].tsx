@@ -7,7 +7,6 @@ import AddNewObject from "../../components/AddNewObject";
 import DisplayAddedChild from "../../components/DisplayAddedChild";
 import ValueModal from "../../components/modals/ValueModal";
 import formatData from './../../functions/FormatData';
-import { globalData } from './../../atoms/globalData';
 
 const Generator = () => {
   const {
@@ -61,9 +60,7 @@ const Generator = () => {
         ok[keyId] = {
           key: currentPair.key,
           value: currentPair.value,
-          children: {
-            
-          },
+          children: {},
           counter: ud[1].counter + 1,
           type,
         }
